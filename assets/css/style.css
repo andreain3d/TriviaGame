@@ -1,19 +1,27 @@
+/*********Fonts********/
 @font-face {
   font-family: "Magic School Two";
   src: url("../fonts/MagicSchoolTwo.ttf");
 }
-#start-btn {
-  font-size: 1.5rem;
-}
 
-#replay-btn {
-  display: none;
-}
-
+/********Main Content*******/
 body {
   background: url("../images/hp-bg.png");
   text-align: center;
   font-family: "EB Garamond", serif;
+}
+
+h1 {
+  font-family: "Magic School Two", "EB Garamond", serif;
+  font-size: 7rem;
+}
+
+button {
+  margin: 10px;
+}
+
+button:hover {
+  background: #e59d08;
 }
 
 .main {
@@ -24,22 +32,18 @@ body {
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-button {
-  margin: 10px;
+.question {
+  font-size: 2rem;
 }
-button:hover {
-  background: #e59d08;
+
+#start-btn {
+  font-size: 1.5rem;
+}
+
+#replay-btn {
+  display: none;
 }
 
 .btn-secondary:hover {
   background: #e59d08;
-}
-
-h1 {
-  font-family: "Magic School Two", "EB Garamond", serif;
-  font-size: 7rem;
-}
-
-.question {
-  font-size: 2rem;
 }
