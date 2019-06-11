@@ -23,7 +23,7 @@ var countDown = function() {
   $("#time").text(time);
   if (time === 0) {
     intervalClear();
-    incorrectAnswer();
+    outOfTime();
   }
 };
 
@@ -158,6 +158,42 @@ var incorrectAnswer = function() {
   $(".question").empty();
   $(".question").text(
     "Uh oh, the correct answer was " + content[questionCounter].correct + "."
+  );
+  questionCounter++;
+  /************checks if quiz is at the end, and if so displays number correct out of total and offers replay button***********/
+  if (questionCounter === content.length) {
+    setTimeout(function() {
+      resetPage();
+      $("#replay-btn").show();
+      $(".results").text(
+        "You got " +
+          correctAnswerCount +
+          " out of " +
+          content.length +
+          " correct."
+      );
+      $("#replay-btn").on("click", function() {
+        resetPage();
+        resetTimer();
+        questionCounter = 0;
+        correctAnswerCount = 0;
+        nextQuestion();
+      });
+    }, 3000);
+  } else {
+    setTimeout(function() {
+      nextQuestion();
+    }, 3000);
+  }
+};
+/************If time runs out, empties question, refills it with an out of time message, and adds to question counter***********/
+var outOfTime = function() {
+  $(".options").off();
+  $(".question").empty();
+  $(".question").text(
+    "You ran out of time! The correct answer was " +
+      content[questionCounter].correct +
+      "."
   );
   questionCounter++;
   /************checks if quiz is at the end, and if so displays number correct out of total and offers replay button***********/
