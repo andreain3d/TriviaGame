@@ -2,6 +2,9 @@
   font-family: "Magic School Two";
   src: url("../fonts/MagicSchoolTwo.ttf");
 }
+#start-btn {
+  font-size: 1.5rem;
+}
 
 #replay-btn {
   display: none;

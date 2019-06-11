@@ -33,6 +33,26 @@ var content = [
     correct: "Aconite"
   },
   {
+    question: "When is Harry Potter's birthday?",
+    options: ["June 13", "October 31", "December 21", "July 31"],
+    correct: "July 31"
+  },
+  {
+    question: "What is the form of Hermione's patronus?",
+    options: ["Rabbit", "Otter", "Stag", "Doe"],
+    correct: "Otter"
+  },
+  {
+    question: "Which of the following professors teaches Arithmancy?",
+    options: [
+      "Aurora Sinistra",
+      "Septima Vector",
+      "Bathsheba Babbling",
+      "Sybill Trelawney"
+    ],
+    correct: "Septima Vector"
+  },
+  {
     question:
       "Dumbledore has a scar above his left knee that is a perfect map of what?",
     options: ["Scotland", "Hogwarts", "Stonehenge", "The London Underground"],
@@ -126,6 +146,8 @@ var incorrectAnswer = function() {
 };
 
 var startGame = function() {
+  $(".question").empty();
+  $("#start-btn").hide();
   nextQuestion();
 };
 
@@ -159,4 +181,8 @@ var nextQuestion = function() {
   });
 };
 
-startGame();
+$(document).ready(function() {
+  $("#start-btn").on("click", function() {
+    startGame();
+  });
+});
