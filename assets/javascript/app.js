@@ -3,6 +3,7 @@ var time = 31;
 var intervalId;
 var questionCounter = 0;
 
+/********Timer Functions*********/
 var resetTimer = function() {
   time = 31;
 };
@@ -26,6 +27,7 @@ var countDown = function() {
   }
 };
 
+/**********Question and Answer object*********/
 var content = [
   {
     question: "Monkshood and wolfsbane are the same plant, also known as what?",
@@ -76,88 +78,20 @@ var content = [
     correct: "150 mph"
   }
 ];
-
-var correctAnswer = function() {
-  $(".options").off();
-  $(".question").empty();
-  $(".question").text(
-    "Brilliant! The correct answer was " +
-      content[questionCounter].correct +
-      "."
-  );
-  correctAnswerCount++;
-  questionCounter++;
-  if (questionCounter === content.length) {
-    setTimeout(function() {
-      resetPage();
-      $("#replay-btn").show();
-      $(".results").text(
-        "You got " +
-          correctAnswerCount +
-          " out of " +
-          content.length +
-          " correct."
-      );
-      $("#replay-btn").on("click", function() {
-        resetPage();
-        resetTimer();
-        questionCounter = 0;
-        correctAnswerCount = 0;
-        nextQuestion();
-      });
-    }, 4000);
-  } else {
-    setTimeout(function() {
-      nextQuestion();
-    }, 4000);
-  }
-};
-var incorrectAnswer = function() {
-  $(".options").off();
-  $(".question").empty();
-  $(".question").text(
-    "Uh oh, the correct answer was " + content[questionCounter].correct + "."
-  );
-  questionCounter++;
-  if (questionCounter === content.length) {
-    setTimeout(function() {
-      resetPage();
-      $("#replay-btn").show();
-      $(".results").text(
-        "You got " +
-          correctAnswerCount +
-          " out of " +
-          content.length +
-          " correct."
-      );
-      $("#replay-btn").on("click", function() {
-        resetPage();
-        resetTimer();
-        questionCounter = 0;
-        correctAnswerCount = 0;
-        nextQuestion();
-      });
-    }, 4000);
-  } else {
-    setTimeout(function() {
-      nextQuestion();
-    }, 4000);
-  }
-};
-
-var startGame = function() {
-  $(".question").empty();
-  $("#start-btn").hide();
-  nextQuestion();
-};
-
+/************Resets DOM for next question***********/
 var resetPage = function() {
   $(".question").empty();
   $(".buttons").empty();
   $("#replay-btn").hide();
   $(".results").empty();
 };
-
+/************Begins the game***********/
+var startGame = function() {
+  $(".question").empty();
+  $("#start-btn").hide();
+  nextQuestion();
+};
+/************Starts timer, displays question & creates answer buttons***********/
 var nextQuestion = function() {
   resetTimer();
   resetPage();
@@ -170,7 +104,7 @@ var nextQuestion = function() {
     answerBtn.text(content[questionCounter].options[i]);
     $(".buttons").append(answerBtn);
   }
-
+  /************Records user selection and compares to correct answer***********/
   $(".options").on("click", function() {
     intervalClear();
     if ($(this).attr("value") === content[questionCounter].correct) {
@@ -180,7 +114,80 @@ var nextQuestion = function() {
     }
   });
 };
+/************If correct, empties question, refills it with correct answer message, adds to score, and adds to question counter***********/
+var correctAnswer = function() {
+  $(".options").off();
+  $(".question").empty();
+  $(".question").text(
+    "Brilliant! The correct answer was " +
+      content[questionCounter].correct +
+      "."
+  );
+  correctAnswerCount++;
+  questionCounter++;
+  /************checks if quiz is at the end, and if so displays number correct out of total and offers replay button***********/
+  if (questionCounter === content.length) {
+    setTimeout(function() {
+      resetPage();
+      $("#replay-btn").show();
+      $(".results").text(
+        "You got " +
+          correctAnswerCount +
+          " out of " +
+          content.length +
+          " correct."
+      );
+      $("#replay-btn").on("click", function() {
+        resetPage();
+        resetTimer();
+        questionCounter = 0;
+        correctAnswerCount = 0;
+        nextQuestion();
+      });
+    }, 3000);
+  } else {
+    setTimeout(function() {
+      nextQuestion();
+    }, 3000);
+  }
+};
 
+/************If incorrect, empties question, refills it with incorrect answer message, and adds to question counter***********/
+var incorrectAnswer = function() {
+  $(".options").off();
+  $(".question").empty();
+  $(".question").text(
+    "Uh oh, the correct answer was " + content[questionCounter].correct + "."
+  );
+  questionCounter++;
+  /************checks if quiz is at the end, and if so displays number correct out of total and offers replay button***********/
+  if (questionCounter === content.length) {
+    setTimeout(function() {
+      resetPage();
+      $("#replay-btn").show();
+      $(".results").text(
+        "You got " +
+          correctAnswerCount +
+          " out of " +
+          content.length +
+          " correct."
+      );
+      $("#replay-btn").on("click", function() {
+        resetPage();
+        resetTimer();
+        questionCounter = 0;
+        correctAnswerCount = 0;
+        nextQuestion();
+      });
+    }, 3000);
+  } else {
+    setTimeout(function() {
+      nextQuestion();
+    }, 3000);
+  }
+};
+
+/*******Starts game on button press*********/
 $(document).ready(function() {
   $("#start-btn").on("click", function() {
     startGame();
